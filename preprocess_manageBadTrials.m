@@ -4,7 +4,7 @@ function [EEGlabStruct] = preprocess_manageBadTrials(EEGlabStruct,opts)
 % opts   - options for managing bad trials
 %
 %_____________________________________________________________________________
-% Author: Sridhar Jagannathan (01/01/2017).
+% Author: Sridhar Jagannathan (05/07/2017).
 %
 % Copyright (C) 2017 Sridhar Jagannathan
 %
@@ -41,7 +41,8 @@ elseif opts.recon
     rejelecscount = nrrejec(BadTrlIdx);
     [~,idx] = find(rejelecscount==0); %Remove the trials that have no bad electrodes..
     BadTrlIdx(idx)=[];
-
+    EEGlabStruct.rejepoch = BadTrlIdx;
+    EEGlabStruct.reconepoch = BadElecIdx;
 
     fprintf('\nInterpolating bad channels in a trial by trial manner...\n');
     for m = 1:length(BadTrlIdx)
