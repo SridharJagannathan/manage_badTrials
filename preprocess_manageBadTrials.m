@@ -26,6 +26,11 @@ function [EEGlabStruct] = preprocess_manageBadTrials(EEGlabStruct,opts)
 
 if opts.reject 
     
+    nrrejec = sum(BadElecIdx,1);
+    rejelecscount = nrrejec(BadTrlIdx);
+    [~,idx] = find(rejelecscount==0); %Remove the trials that have no bad electrodes..
+    BadTrlIdx(idx)=[];
+    
     fprintf('<--------Summary------------->\n');
     fprintf('The following epochs have been marked for rejection after manual inspection \n');
     fprintf([num2str(BadTrlIdx) '\n']);
